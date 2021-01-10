@@ -23,11 +23,14 @@ public class GoogleSearch {
     private static String SEARCH_ENGINE_ID;
 
     /**
-     * @param httpTimeout HTTP connection timeout in seconds.
      * @param keyword Google Search query string.
+     * @param gl Geolocation of end user. two-letter country code.
+     * @param cr Restricts search results to documents originating in a particular country.
+     * @param start The index of the first result to return.
+     * @param httpTimeout HTTP connection timeout in seconds.
      * @return List of search query results.
      */
-    public static List<Result> search(int httpTimeout, String keyword) {
+    public static List<Result> search(String keyword, String gl, String cr, Long start, int httpTimeout) {
         CustomSearchAPI customsearch = null;
 
         try {
@@ -52,6 +55,9 @@ public class GoogleSearch {
             assert customsearch != null;
             CustomSearchAPI.Cse.List list = customsearch.cse().list();
             list.setQ(keyword);
+            list.setGl(gl);
+            list.setCr(cr);
+            list.setStart(start);
             list.setKey(GOOGLE_API_KEY);
             list.setCx(SEARCH_ENGINE_ID);
             Search results = list.execute();

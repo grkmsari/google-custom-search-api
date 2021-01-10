@@ -1,10 +1,13 @@
-import com.bdijital.GoogleSearch.GoogleSearch;
+package com.bdijital.GoogleSearch;
+
 import com.google.api.services.customsearch.v1.model.Result;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class GoogleSearchTest {
     Dotenv dotenv = Dotenv.load();
@@ -17,11 +20,11 @@ class GoogleSearchTest {
         List<Result> results = new ArrayList<>();
 
         try {
-            results = GoogleSearch.search(5, "kaufen");
+            results = GoogleSearch.search("kaufen", "de", "countryDE", 11L, 5);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for(Result result : results){
+        for (Result result : results) {
             System.out.println(result.getDisplayLink());
             System.out.println(result.getTitle());
             // all attributes:
